@@ -1,6 +1,78 @@
-# xian-kt
+# Xian Kotlin SDK
 
-Kotlin SDK for interacting with the Xian blockchain network. This library provides tools for wallet management, transaction handling, and smart contract interactions.
+[![Kotlin Version](https://img.shields.io/badge/kotlin-1.9.22-blue.svg)](https://kotlinlang.org)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+Kotlin implementation of the Xian blockchain SDK, providing tools for wallet management, transaction handling, and smart contract interactions.
+
+## Features
+
+- 🛡️ Secure wallet management using Ed25519 cryptography
+- 🔗 Hierarchical Deterministic (HD) wallet support
+- 📜 Smart contract deployment and interaction
+- 💸 Token transfer functionality
+- 🔍 Blockchain state queries
+- 🧪 Transaction simulation
+
+## Installation
+
+### Gradle (Kotlin DSL)
+```kotlin
+dependencies {
+    implementation("com.xian:xian-kt:1.0.0")
+}
+```
+
+### Maven
+```xml
+<dependency>
+    <groupId>com.xian</groupId>
+    <artifactId>xian-kt</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+## Quick Start
+
+### Create a Wallet
+```kotlin
+import com.xian.Wallet
+
+val wallet = Wallet()
+println("Public Key: ${wallet.publicKey.toHexString()}")
+println("Private Key: ${wallet.privateKey.toHexString()}")
+```
+
+### HD Wallet Example
+```kotlin
+import com.xian.HDWallet
+
+val hdWallet = HDWallet.generateNew()
+val derivedWallet = hdWallet.getWallet(listOf(44, 0, 0, 0, 0))
+println("Derived Wallet Public Key: ${derivedWallet.publicKey.toHexString()}")
+```
+
+### Blockchain Interaction
+```kotlin
+import com.xian.Xian
+
+val xian = Xian("http://localhost:52260", wallet)
+val balance = xian.getBalance(wallet.publicKey.toHexString())
+println("Wallet Balance: $balance")
+```
+
+## Documentation
+
+Full documentation is available at [xian-kt-docs](https://github.com/Endogen/xian-kt/wiki)
+
+## Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 
 ## Table of Contents
 - [Installation](#installation)
