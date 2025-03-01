@@ -59,6 +59,25 @@ import com.xian.Xian
 val xian = Xian("http://localhost:52260", wallet)
 val balance = xian.getBalance(wallet.publicKey.toHexString())
 println("Wallet Balance: $balance")
+
+// Smart Contract Example
+val contractCode = """
+    @export
+    def greet(name: str):
+        return f"Hello, {name}!"
+""".trimIndent()
+
+// Deploy contract
+val deployed = xian.smartContracts.deployContract("greeting", contractCode)
+println("Contract deployed: $deployed")
+
+// Call contract
+val result = xian.smartContracts.callContract("greeting", "greet", mapOf("name" to "World"))
+println("Contract result: $result")
+
+// Get contract state
+val state = xian.smartContracts.getContractState("greeting")
+println("Contract state: $state")
 ```
 
 ## Documentation
