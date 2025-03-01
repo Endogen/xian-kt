@@ -7,9 +7,11 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.MediaType.Companion.toMediaType
 import com.google.gson.Gson
 import com.xian.SmartContract
+import com.xian.Transaction
 
 class Xian(private val nodeUrl: String, private val wallet: Wallet) {
     val smartContracts = SmartContract(nodeUrl, wallet)
+    val transactions = Transaction(nodeUrl, wallet)
     private val client = OkHttpClient()
     private val gson = Gson()
     private val jsonMediaType = "application/json".toMediaType()

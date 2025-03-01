@@ -185,8 +185,32 @@ println("Derived Wallet Public Key: ${derivedWallet.publicKey.toHexString()}")
 import com.xian.Xian
 
 val xian = Xian("http://localhost:52260", wallet)
+
+// Get balance
 val balance = xian.getBalance(wallet.publicKey.toHexString())
 println("Wallet Balance: $balance")
+
+// Create and send transaction
+val payload = xian.transactions.createTransaction(
+    contract = "currency",
+    function = "transfer",
+    kwargs = mapOf(
+        "to" to "recipient_address",
+        "amount" to 1000
+    )
+)
+
+// Simulate transaction
+val simulation = xian.transactions.simulateTransaction(payload)
+println("Simulation result: ${simulation.result}")
+println("Estimated stamps: ${simulation.stampsUsed}")
+
+// Update payload with required stamps
+val finalPayload = payload.copy(stampsSupplied = simulation.stampsUsed)
+
+// Broadcast transaction
+val success = xian.transactions.broadcastTransaction(finalPayload)
+println("Transaction successful: $success")
 
 // Smart Contract Example
 val contractCode = """
